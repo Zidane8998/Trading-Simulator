@@ -1,46 +1,19 @@
 package model;
 
-import java.awt.EventQueue;
+import java.awt.BorderLayout;
 
 import javax.swing.JFrame;
-import javax.swing.JButton;
-import javax.swing.JPanel;
-import javax.swing.border.LineBorder;
-import javax.swing.border.TitledBorder;
-
-import java.awt.Color;
-import java.awt.FlowLayout;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.GridLayout;
-import java.awt.Insets;
-import javax.swing.BoxLayout;
-import java.awt.BorderLayout;
-import javax.swing.JMenuBar;
 import javax.swing.JMenu;
+import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
 
-public class MainPanel {
-
-	private JFrame frame;
+public class MainPanel extends JFrame{
 
 	/**
-	 * Launch the application.
+	 * 
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					MainPanel window = new MainPanel();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	private static final long serialVersionUID = 1L;
+	private JFrame frame;
 
 	/**
 	 * Create the application.
@@ -73,6 +46,7 @@ public class MainPanel {
 		mnFile.add(mntmLoad);
 		
 		frame.setJMenuBar(menuBar);
+		frame.setVisible(true);
 		
 	}
 }
