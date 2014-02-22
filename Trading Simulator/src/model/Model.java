@@ -33,7 +33,7 @@ public class Model {
 	}
 	
 	//update the list of values used by the View, update 
-	private void updateList(){
+	private synchronized void updateList(){
 		//clear list
 		values.clear();
 		
@@ -49,27 +49,33 @@ public class Model {
 	}
 	
 	//notify the View that the state information has changed
-	private void updateView(){
+	private synchronized void updateView(){
 		//pass updated values to View
 		v.updateView(values);
 	}
 	
 	//setters
-	public void setPrices(Map<String, Float> newvalues){
+	public synchronized void setPrices(Map<String, Float> newvalues){
 		curBid = newvalues.get("curBid");
 		curAsk = newvalues.get("curAsk");
 		System.out.println("Prices updated!");
 		updateList();
 	}
 	
+	public synchronized void setVars(Map<String, Float> newvalues){
+		dollars = newvalues.get("dollars");
+		bitcoin = newvalues.get("bitcoin");
+		System.out.println("Dollars and bitcoin updated!");
+		updateList();
+	}
 	
 	//getters
-    public Map<String, Float> getPrices(){
+    public synchronized Map<String, Float> getPrices(){
     	return this.values;
     }
     
     //gives access to the View-->Model
-    public int getSlider(){
+    public synchronized int getSlider(){
 		return v.getSlider();
     }
    

@@ -29,15 +29,28 @@ public class Buy extends AbstractAction implements ActionListener{
 		
 		//get value of btcSlider
 		int amt = m.getSlider();
-		System.out.println(amt);
 		
-		//get $
+		//get bitcoin, $ and current buy price
+		float dollars = values.get("dollars");
+		float bitcoin = values.get("bitcoin");
+		float curAsk = values.get("curAsk");
 		
 		//check to see if enough $ remains
-		//subtract the dollars
-		//add the bitcoin
-		//update the model
-		
+		if (amt * curAsk <= dollars){
+			//subtract the dollars
+			dollars -= amt * curAsk;
+			//add the bitcoin
+			bitcoin += amt;
+			//update the model by passing in new values array
+			values.put("dollars", dollars);
+			values.put("bitcoin", bitcoin);
+			m.setVars(values);
+			
+		}
+		else{
+			System.out.println("Not enough $!");
+		}
+	
 	}
 
 }

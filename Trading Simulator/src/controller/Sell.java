@@ -26,17 +26,32 @@ public class Sell extends AbstractAction implements ActionListener{
 		//get the current values of all state variables
 		Map<String, Float> values;
 		values = m.getPrices();
-		
+				
 		//get value of btcSlider
 		int amt = m.getSlider();
-		System.out.println(amt);
-		
-		//get $
-		
-		//check to see if enough $ remains
-		//subtract the dollars
-		//add the bitcoin
-		//update the model
+				
+		//get bitcoin, $ and current buy price
+		float dollars = values.get("dollars");
+		float bitcoin = values.get("bitcoin");
+		float curBid = values.get("curBid");
+				
+		//check to see if enough BTC remains
+		if (bitcoin >= amt){
+			
+			//subtract the bitcoin
+			bitcoin -= amt;
+			//add the $ amt
+			dollars += amt * curBid;
+			
+			//update the model by passing in new values array
+			values.put("dollars", dollars);
+			values.put("bitcoin", bitcoin);
+			m.setVars(values);
+					
+		}
+		else{
+			System.out.println("Not enough BTC!");
+		}
 		
 	}
 

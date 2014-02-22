@@ -28,6 +28,9 @@ import java.awt.GridBagLayout;
 import javax.swing.JSlider;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.EtchedBorder;
+import javax.swing.border.LineBorder;
 
 public class MainPanel extends JFrame{
 
@@ -62,6 +65,7 @@ public class MainPanel extends JFrame{
 		frame.getContentPane().setLayout(new BorderLayout(0, 0));
 		
 		JPanel pointsPanel = new JPanel();
+		pointsPanel.setBorder(new LineBorder(new Color(0, 0, 0)));
 		frame.getContentPane().add(pointsPanel, BorderLayout.NORTH);
 		pointsPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
@@ -104,10 +108,12 @@ public class MainPanel extends JFrame{
 		buttonsPanel.add(btcSlider);
 		
 		buyButton = new JButton("Buy Bitcoin (Market Price)");
+		buyButton.setEnabled(false);
 		
 		buttonsPanel.add(buyButton);
 		
 		sellButton = new JButton("Sell Bitcoin (Market Price)");
+		sellButton.setEnabled(false);
 		buttonsPanel.add(sellButton);
 		
 		JMenuBar menuBar = new JMenuBar();
@@ -124,15 +130,23 @@ public class MainPanel extends JFrame{
 		JMenuItem mntmLoad = new JMenuItem("Load");
 		mnFile.add(mntmLoad);
 		
+		JMenuItem Quit = new JMenuItem("Quit");
+		mnFile.add(Quit);
+		
 		frame.setJMenuBar(menuBar);
 		frame.setVisible(true);
 		
 	}
-	public void updateFields(Map<String, Float> newvalues){
+	public synchronized void updateFields(Map<String, Float> newvalues){
 		curAskLbl.setText( String.valueOf( newvalues.get("curAsk") ) );
 		curBidLbl.setText( String.valueOf( newvalues.get("curBid") ) );
 		btcLbl.setText( String.valueOf( newvalues.get("bitcoin") ) );
 		dollarsLbl.setText( String.valueOf( newvalues.get("dollars") ) );
+		if (newvalues.get("curBid")!=0){
+			buyButton.setEnabled(true);
+			sellButton.setEnabled(true);
+		}
+		
 	}
 	
 	public int getSlider(){

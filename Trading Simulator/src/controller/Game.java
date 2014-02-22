@@ -8,6 +8,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 import javax.swing.AbstractAction;
 
@@ -30,7 +34,8 @@ public class Game extends JsonReader implements ActionListener{
 	private Buy buy;
 	private Sell sell;
 	
-	public Game() {
+	public Game(){
+		
 		//initialize Model and save link
 		m = new Model();
 		
@@ -51,12 +56,14 @@ public class Game extends JsonReader implements ActionListener{
 		actions.add(sell);
 		v.attachListeners(actions);
 		
-		this.checkPrice();
-		this.play();
+		//initialize timer that updates price
+		checkPrice();
+		play();
+		
 	}
 	
 	//main game loop
-	private void play(){
+	private int play(){
 		//update BTC price if timer is over 10s
 		scheduleTimer(timer);
 		
@@ -64,6 +71,7 @@ public class Game extends JsonReader implements ActionListener{
 		
 		//main game loop - updates state information
 		//while (true){}
+		return 1;
 	}
 	
 	//schedule a Timer to get the price every 10 seconds
@@ -77,23 +85,24 @@ public class Game extends JsonReader implements ActionListener{
 		}, 10*1000, 10*1000);
 	}
 	
-	private void checkPrice(){
+	//get current price of Ask and Bids on Bitstamp, returning 1 when finished
+	private int checkPrice(){
 		System.out.println("Checking price...");
 		//get current price
 		String ask = "";
 		String bid = "";
 		try {
-			json = readJsonFromUrl("http://www.bitstamp.net/api/ticker/");
+			json = readJsonFromUrl("https://www.bitstamp.net/api/ticker/");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			//e.printStackTrace();
+			e.printStackTrace();
 		}
 		try {
 			ask = json.get("ask").toString();
 			bid = json.get("bid").toString();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			//e.printStackTrace();
+			e.printStackTrace();
 		}
 		
 		//parse JSON data into float format
@@ -119,6 +128,7 @@ public class Game extends JsonReader implements ActionListener{
 			System.out.println("Price changed, updating Model..");
 			m.setPrices(values);
 		}
+		return 1;
 	}
 	
 	@Override
