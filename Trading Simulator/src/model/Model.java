@@ -1,6 +1,5 @@
 package model;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,14 +14,14 @@ public class Model {
 	private View v;
 	public Model(){}
 	
-	protected void initModel(){
+	public void initModel(){
 		//initialize starting values
 		dollars = 2000;
 		bitcoin = 0;
 		profit = 0;
 		curPrice = 0;
 		
-		//Initialize View and save link to it
+		//initialize View and save link to it
 		v = new View(this);
 		
 		//instantiate the values array and update it
@@ -54,14 +53,14 @@ public class Model {
 	}
 	
 	//setters
-	protected void setPrice(float newPrice){
+	public void setPrice(float newPrice){
 		curPrice = newPrice;
 		System.out.println("New price: " + newPrice);
 		updateList();
 	}
 	
 	//getters
-    protected float getPrice(){
+    public float getPrice(){
     	return this.curPrice;
     }
 	

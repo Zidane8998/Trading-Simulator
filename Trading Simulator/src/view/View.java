@@ -23,6 +23,7 @@ public class View /*extends JFrame*/{
 	}
 	
 	public void updateView(Map<String, Float> newvalues){
+		//clear the current set of values saved in the HashMap, then save the new values
 		values.clear();
 		values.putAll(newvalues);
 	}

@@ -1,10 +1,13 @@
-package model;
+package controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import java.util.Timer;
 import java.util.TimerTask;
+
+import model.JsonReader;
+import model.Model;
 
 import org.json.JSONObject;
 
@@ -15,6 +18,7 @@ public class Game extends JsonReader implements ActionListener{
 	private float tmp;
 	private Timer timer;
 	private JSONObject json;
+	
 	public Game() {
 		m = new Model();
 		timer = new Timer();
@@ -35,6 +39,7 @@ public class Game extends JsonReader implements ActionListener{
 		//while (true){}
 	}
 	
+	//schedule a Timer to get the price every 10 seconds
 	private void scheduleTimer(Timer timer){
 		System.out.println("Starting timer...");
 		timer.scheduleAtFixedRate(new TimerTask(){
@@ -62,7 +67,7 @@ public class Game extends JsonReader implements ActionListener{
 			//e.printStackTrace();
 		}
 		
-		//parse JSON data into float
+		//parse JSON data into float format
 		this.tmp = Float.parseFloat(lastPrice);
 		
 		//if price has changed, change price in Model

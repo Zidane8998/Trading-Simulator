@@ -1,5 +1,8 @@
 package model;
 
+import controller.Game;
+
+
 public class Starter {
 
 	/**
