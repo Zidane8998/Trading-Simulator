@@ -9,20 +9,21 @@ public class Model {
 	private float dollars;
 	private float bitcoin;
 	private float profit;
-	private float curPrice;
+	private float curBid;
+	private float curAsk;
 	private Map<String, Float> values;
 	private View v;
 	public Model(){}
 	
-	public void initModel(){
+	public void initModel(View view){
+		v = view;
+		
 		//initialize starting values
 		dollars = 2000;
 		bitcoin = 0;
 		profit = 0;
-		curPrice = 0;
-		
-		//initialize View and save link to it
-		v = new View(this);
+		curBid = 0;
+		curAsk = 0;
 		
 		//instantiate the values array and update it
 		values = new HashMap<String, Float>();
@@ -40,7 +41,8 @@ public class Model {
 		values.put("dollars", dollars);
 		values.put("bitcoin", bitcoin);
 		values.put("profit", profit);
-		values.put("curPrice", curPrice);
+		values.put("curBid", curBid);
+		values.put("curAsk", curAsk);
 		
 		//update the View since at least one value has changed
 		updateView();
@@ -53,15 +55,23 @@ public class Model {
 	}
 	
 	//setters
-	public void setPrice(float newPrice){
-		curPrice = newPrice;
-		System.out.println("New price: " + newPrice);
+	public void setPrices(Map<String, Float> newvalues){
+		curBid = newvalues.get("curBid");
+		curAsk = newvalues.get("curAsk");
+		System.out.println("Prices updated!");
 		updateList();
 	}
 	
+	
 	//getters
-    public float getPrice(){
-    	return this.curPrice;
+    public Map<String, Float> getPrices(){
+    	return this.values;
     }
+    
+    //gives access to the View-->Model
+    public int getSlider(){
+		return v.getSlider();
+    }
+   
 	
 }
