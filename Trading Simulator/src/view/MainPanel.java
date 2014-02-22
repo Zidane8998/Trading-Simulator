@@ -108,6 +108,7 @@ public class MainPanel extends JFrame{
 		buttonsPanel.add(btcSlider);
 		
 		buyButton = new JButton("Buy Bitcoin (Market Price)");
+		
 		buyButton.setEnabled(false);
 		
 		buttonsPanel.add(buyButton);
